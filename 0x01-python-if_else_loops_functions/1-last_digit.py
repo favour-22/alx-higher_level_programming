@@ -5,7 +5,7 @@ ld = abs(number) % 10
 if number <= 0:
      ld = ld * -1
 if ld > 5:
-   msg = "greater than 5"
+     msg = "greater than 5"
 elif ld == 0:
     msg = "0"
 else:
