@@ -1,4 +1,5 @@
-integer(my_list=[]):
+#!/usr/bin/python3
+def max_integer(my_list=[]):
     if len(my_list) == 0:
         return None
 
@@ -6,4 +7,4 @@ integer(my_list=[]):
     for i in my_list[1:]:
         if max_val < i:
             max_val = i
-    return 
+    return max_val
