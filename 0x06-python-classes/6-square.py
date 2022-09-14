@@ -77,7 +77,7 @@ class Square:
         get area
         Return:
             area (int)
-        """
+i        """
         return self.__size ** 2
 
     def my_print(self):
