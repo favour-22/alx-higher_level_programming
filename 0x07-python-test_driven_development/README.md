@@ -7,11 +7,11 @@
 * """
     Sample test case
   """
-def mul(a,b):
-    >>> mul(3,4)
-    12
-    >>> mul(1,4)
-    4
-    return a * b
+ *def mul(a,b):
+  *  >>> mul(3,4)
+   * 12
+   * >>> mul(1,4)
+   * 4
+*   return a * b
 * Then run the code above to test.
 
