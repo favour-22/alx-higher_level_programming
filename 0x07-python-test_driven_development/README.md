@@ -3,15 +3,4 @@
 
 ### Command to test : python3 -m doctest -v name of python file(script.py)
 
-* EXAMPLE
-* """
-    Sample test case
-  """
- *def mul(a,b):
-  *  >>> mul(3,4)
-   * 12
-   * >>> mul(1,4)
-   * 4
-*   return a * b
-* Then run the code above to test.
 
