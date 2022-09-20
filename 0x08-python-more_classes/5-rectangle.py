@@ -35,7 +35,11 @@ class Rectangle:
             Returns a string representation of ``Rectangle`` that works with
             eval()
         """
-        return "Rectangle(" + str(self.width) + ", " + str(self.height) + ")"
+        return "Rectangle(" + str(self.width) + "," + str(self.height) + ")"
+
+    def __del__(self):
+        """ Prints a message when a ``Rectangle`` instance is deleted """
+        print("Bye rectangle...")
 
     @property
     def width(self):
