@@ -9,6 +9,8 @@ class Rectangle:
         Rectangle Class
     """
 
+    number_of_instances = 0
+
     def __init__(self, width=0, height=0):
         """ Initializing an instance of ``Rectangle``
 
@@ -19,6 +21,7 @@ class Rectangle:
         """
         self.width = width
         self.height = height
+        type(self).number_of_instances += 1
 
     def __str__(self):
         """
@@ -40,6 +43,7 @@ class Rectangle:
     def __del__(self):
         """ Prints a message when a ``Rectangle`` instance is deleted """
         print("Bye rectangle...")
+        type(self).number_of_instances -= 1
 
     @property
     def width(self):
