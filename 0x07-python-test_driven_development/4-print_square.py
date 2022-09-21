@@ -12,7 +12,7 @@ def print_square(size):
          size (int): The size of one side of the square.
     """
 
-    if size is not  int :
+    if type(size) is not  int :
         raise TypeError("size must be an integer")
     if size < 0:
         raise TypeError("size must be an integer")
