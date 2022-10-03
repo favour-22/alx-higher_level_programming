@@ -86,11 +86,7 @@ class Rectangle(Base):
         return "[Rectangle] ({:d}) {:d}/{:d} - {:d}/{:d}".format(
             self.id, self.x, self.y, self.width, self.height)
 
-<<<<<<< HEAD
-    def update(self, *args):
-=======
     def update(self, *args, **kwargs):
->>>>>>> 38398eb239235ebcca554a240e2354006e7af2a6
         """Updating the rectangle"""
         if args:
             for i in range(len(args)):
@@ -108,39 +104,6 @@ class Rectangle(Base):
                     self.y = args[i]
         else:
             for key, value in kwargs.items():
-<<<<<<< HEAD
-
-                if key == "id":
-
-                    if type(value) is not int:
-
-                        raise TypeError("id must be an integer")
-
-                    self.id = value
-
-                elif key == "width":
-
-                    self.width = value
-
-                elif key == "height":
-
-                    self.height = value
-
-                elif key == "x":
-
-                    self.x = value
-
-                elif key == "y":
-
-                    self.y = value
-
-
-
-    def to_dictionary(self):
-
-        """Returning the dictionary representation of the rectangle"""
-
-=======
                 if key == "id":
                     if type(value) is not int:
                         raise TypeError("id must be an integer")
@@ -156,7 +119,6 @@ class Rectangle(Base):
 
     def to_dictionary(self):
         """Returning the dictionary representation of the rectangle"""
->>>>>>> 38398eb239235ebcca554a240e2354006e7af2a6
         return {
             "id": self.id,
             "width": self.width,
@@ -164,7 +126,3 @@ class Rectangle(Base):
             "x": self.x,
             "y": self.y
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> 38398eb239235ebcca554a240e2354006e7af2a6
