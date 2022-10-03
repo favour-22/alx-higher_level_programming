@@ -27,8 +27,7 @@ class Rectangle(Base):
         if value <= 0:
             raise ValueError("width must be > 0")
         self.__width = value
-        
-        
+
     @property
     def height(self):
         """The height of the rectangle"""
@@ -71,7 +70,6 @@ class Rectangle(Base):
             raise ValueError("y must be >= 0")
         self.__y = value
 
-
     def area(self):
         """The area of the rectangle"""
         return self.width * self.height
@@ -88,10 +86,43 @@ class Rectangle(Base):
         return "[Rectangle] ({:d}) {:d}/{:d} - {:d}/{:d}".format(
             self.id, self.x, self.y, self.width, self.height)
 
+    def update(self, *args, **kwargs):
+        """Updating the rectangle"""
+        if args:
+            for i in range(len(args)):
+                if i == 0:
+                    if type(args[i]) is not int:
+                        raise TypeError("id must be an integer")
+                    self.id = args[i]
+                elif i == 1:
+                    self.width = args[i]
+                elif i == 2:
+                    self.height = args[i]
+                elif i == 3:
+                    self.x = args[i]
+                elif i == 4:
+                    self.y = args[i]
+        else:
+            for key, value in kwargs.items():
+                if key == "id":
+                    if type(value) is not int:
+                        raise TypeError("id must be an integer")
+                    self.id = value
+                elif key == "width":
+                    self.width = value
+                elif key == "height":
+                    self.height = value
+                elif key == "x":
+                    self.x = value
+                elif key == "y":
+                    self.y = value
 
-
-
-
-
-
-
+    def to_dictionary(self):
+        """Returning the dictionary representation of the rectangle"""
+        return {
+            "id": self.id,
+            "width": self.width,
+            "height": self.height,
+            "x": self.x,
+            "y": self.y
+        }
