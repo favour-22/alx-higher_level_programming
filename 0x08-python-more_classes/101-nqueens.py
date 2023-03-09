@@ -1,180 +1,77 @@
-#!/usr/bin/python3
-"""
-    Module containing functions to search for solutions to N-queens problem.
-"""
+import sys
 
 
-def all_possible(n=4):
-    """ Function to find all possible solutions by placing the first queen on
-        the first row, with different column positions starting from 2nd
-        column to 2nd to last column.
-
-        Args:
-            n (int): The size of the chess board, but also the number of queens
-                to place on the board.
+def n_queens(N):
     """
+    Solves the N-Queens problem for a chessboard of size N.
+    Prints every possible solution to the problem, one solution per line.
 
-    for i in range(n):
-        matrix = []
-        matrix.append([0, i])
-        col = [z for z in range(n)]
-        col.remove(i)
-        recur_bt(matrix, 1, col, n)
+    Parameters:
+    N (int): the size of the chessboard and the number of queens to be placed on it
 
-
-def recur_bt(matrix, row, col, n):
+    Returns:
+    None
     """
-        Recursive backtrack function. Test remaining possible positions using
-        `row` and `col` values in order to place another queen on the board.
-        Base case, either the length of `matrix` is the same as `n` (all queens
-        have been placed in non threatening positions) or all possible
-        combinations of `row` and `col` with the current matrix yields no
-        solution.
+    def is_valid(board, row, col):
+        """
+        Checks whether it is safe to place a queen at the specified row and column on the board.
 
-        Args:
-            matrix (:obj:`list` of :obj:`list` or int): A matrix list of lists
-                representing the positions of queens placed on the board.
-            row (:obj:`list` of int): Possible row positions the remaining
-                queens can be placed on.
-            col (:obj:`list` of int): Possible column positions the remaining
-                queens can be placed on.
-            n (int): The size of the board, but also the number of queens that
-                can fit.
+        Parameters:
+        board (list): a list representing the chessboard
+        row (int): the row to check
+        col (int): the column to check
 
         Returns:
-            A list of lists which is a solution, or None if the current members
-            of the matrix lead to a dead end.
-    """
-    if len(matrix) is n:
-        return matrix
+        bool: True if it is safe to place a queen at the specified row and column, False otherwise
+        """
+        for i in range(row):
+            if board[i] == col or \
+               board[i] - i == col - row or \
+               board[i] + i == col + row:
+                return False
+        return True
 
-    if row:
-        i = row
-        for j in col:
-                if (not bot_right(matrix, i + 1, j + 1, n) or
-                    not bot_left(matrix, i + 1, j - 1, n) or
-                    not top_left(matrix, i - 1, j - 1, n) or
-                        not top_right(matrix, i - 1, j + 1, n)):
-                        continue
-                matrix.append([i, j])
-                new_col = list(col)
-                new_col.remove(j)
-                new_matrix = recur_bt(matrix, row + 1, new_col, n)
-                if new_matrix is not None:
-                    print(matrix)
-                matrix.remove([i, j])
-    return None
+    def backtrack(board, row):
+        """
+        Recursively tries all possible configurations of queens on the board.
 
-
-def bot_right(matrix, y, x, n):
-    """
-        Function to test if there are any queens on the bottom right diagonal.
-
-        Args:
-            matrix (:obj:`list` of :obj:`list` or int): A matrix list of lists
-                representing the positions of queens placed on the board.
-            y (int): "row" or y co-ordinate.
-                queens can be placed on.
-            x (int): "column" or x co-ordinate.
-            n (int): The size of the board.
+        Parameters:
+        board (list): a list representing the chessboard
+        row (int): the row to place a queen in
 
         Returns:
-            True if no queens exist on the bottom right diagonal otherwise
-            False.
-    """
-    while y < n and x < n:
-        if [y, x] in matrix:
-            return False
-        else:
-            y += 1
-            x += 1
-    return True
+        None
+        """
+        if row == N:
+            solutions.append(board[:])
+            return
+        for col in range(N):
+            if is_valid(board, row, col):
+                board[row] = col
+                backtrack(board, row + 1)
 
-
-def bot_left(matrix, y, x, n):
-    """
-        Function to test if there are any queens on the bottom left diagonal.
-
-        Args:
-            matrix (:obj:`list` of :obj:`list` or int): A matrix list of lists
-                representing the positions of queens placed on the board.
-            y (int): "row" or y co-ordinate.
-                queens can be placed on.
-            x (int): "column" or x co-ordinate.
-            n (int): The size of the board.
-
-        Returns:
-            True if no queens exist on the bottom left diagonal otherwise
-            False.
-    """
-    while y < n and x >= 0:
-        if [y, x] in matrix:
-            return False
-        else:
-            y += 1
-            x -= 1
-    return True
-
-
-def top_left(matrix, y, x, n):
-    """
-        Function to test if there are any queens on the top left diagonal.
-
-        Args:
-            matrix (:obj:`list` of :obj:`list` or int): A matrix list of lists
-                representing the positions of queens placed on the board.
-            y (int): "row" or y co-ordinate.
-                queens can be placed on.
-            x (int): "column" or x co-ordinate.
-            n (int): The size of the board.
-
-        Returns:
-            True if no queens exist on the top left diagonal otherwise False.
-    """
-    while y >= 0 and x >= 0:
-        if [y, x] in matrix:
-            return False
-        else:
-            y -= 1
-            x -= 1
-    return True
-
-
-def top_right(matrix, y, x, n):
-    """
-        Function to test if there are any queens on the top right diagonal.
-
-        Args:
-            matrix (:obj:`list` of :obj:`list` or int): A matrix list of lists
-                representing the positions of queens placed on the board.
-            y (int): "row" or y co-ordinate.
-                queens can be placed on.
-            x (int): "column" or x co-ordinate.
-            n (int): The size of the board.
-
-        Returns:
-            True if no queens exist on the top right diagonal otherwise False.
-    """
-    while y >= 0 and x < n:
-        if [y, x] in matrix:
-            return False
-        else:
-            y -= 1
-            x += 1
-    return True
-
-if __name__ == "__main__":
-    from sys import argv
-    if len(argv) is not 2:
-        print("Usage: nqueens N")
-        exit(1)
-    try:
-        n = int(argv[1])
-    except:
+    if not isinstance(N, int):
         print("N must be a number")
-        exit(1)
-    if n < 4:
+        sys.exit(1)
+    if N < 4:
         print("N must be at least 4")
-        exit(1)
+        sys.exit(1)
 
-    all_possible(n)
+    board = [-1] * N
+    solutions = []
+    backtrack(board, 0)
+
+    for sol in solutions:
+        print(' '.join(str(col + 1) for col in sol))
+
+
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print("Usage: nqueens N")
+        sys.exit(1)
+    try:
+        N = int(sys.argv[1])
+    except ValueError:
+        print("N must be a number")
+        sys.exit(1)
+    n_queens(N)
